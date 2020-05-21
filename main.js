@@ -15,13 +15,14 @@ const searchCities =  async searchText => {
         return city.name.match(regularExp);
     })
 
-    if(searchText.length === 0){
+    if(searchText.length === 0 || searchText.length === 1 || searchText.length === 2 || searchText.length === 3){
         matches = []
         matchList.innerHTML = ''
     }
 
     outputHTML(matches)
 }
+
 
 //show in HTML
 const outputHTML = matches =>{

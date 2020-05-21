@@ -2,7 +2,6 @@
   border-top: 100px;
 }
 
-
 .blog-footer{
   padding: 2.5rem 0;
   color: #999999;
@@ -60,4 +59,28 @@
   line-height: 40px;
   width: 0px;
   font-weight: bold;
+  width: 240px;
+  padding: 0 10px;
+ }
+
+ .match-list{
+   background-color: #fff;
+   position: absolute;
+   border: 1px solid #d4d4d4;
+   border-top: none;
+   z-index: 2;
+   top: 100%;
+   left: 0%;
+   right: 0%;
+   margin-bottom: none;
+ }
+
+ .mb-1{
+   margin-bottom: 0 !important;
+   cursor: pointer;
+   background-color: #fff;
+   border-bottom: 1px solid #d4d4d4;
+ }
+ .match-list :hover{
+   background-color: #e9e9e9;
  }
