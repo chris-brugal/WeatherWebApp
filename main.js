@@ -3,7 +3,6 @@ var cityName = document.getElementById('myInput');
 var form = document.getElementById('form');
 form.addEventListener('submit', (e)=>{
   e.preventDefault();
-  console.log(cityName.value)
 });
 
 
@@ -16,10 +15,7 @@ fetch('citiesListUS.json')
         for(var i in data){
             cityList.push(data[i].name);
         } 
-        console.log(cityList.length)
     });
-    
-    console.log(cityList.length)
 
 
 //fetch API. Calling the OpenWeatherMap API
@@ -39,13 +35,22 @@ function getWeather(){
         document.getElementById("cityFacts").innerHTML = data.main.temp + '°F';
         document.getElementById("moreDetails").innerHTML = output;
         document.getElementById("longLat").innerHTML = "<br>Longitude: " + data.coord.lon + "&emsp; Latitude: " + data.coord.lat;
+        document.getElementById("weatherDescription").innerHTML = data.weather[0].description
+        console.log(data.weather[0].description)
+        weatherIcon(data.weather[0].icon);
     })  
 }
-
+function weatherIcon(iconCode){
+  var finalURL = "<img src=\"http://openweathermap.org/img/wn/"+iconCode+"@2x.png\" style=\"float: right;\"></img>"
+  document.getElementById("weatherIcon").innerHTML = finalURL;
+}
 
 //suggestive search function. takes two inputs, the key and the city list array
 suggestiveSearch(document.getElementById("myInput"), cityList);
+//currentFocus is used for key pressing down the list, as seen later on
+var currentFocus;
 function suggestiveSearch(input, cityArray) {
+    currentFocus = -1;
     input.addEventListener("input", function(e) {
       //this.value is equal to the total input
         var typedValue = this.value;
@@ -72,6 +77,38 @@ function suggestiveSearch(input, cityArray) {
           }
         }
     });
+    input.addEventListener("keydown", function(e) {
+      var list = document.getElementById(this.id + "autocomplete-list");
+      if (list){
+        list = list.getElementsByTagName("div");
+      } 
+      if (e.keyCode == 40) {
+        currentFocus++;
+        addActive(list);
+      } else if (e.keyCode == 38) { 
+        currentFocus--;
+        addActive(list);
+      } else if (e.keyCode == 13) {
+        e.preventDefault();
+        list[currentFocus].click();
+        document.getElementById("enterButton").click();
+      }
+    });
+    function addActive(list) {
+      if (!list){
+        return false;
+      } 
+      removeActive(list);
+      //creating bounds (which loop around) for when one goes outside the list
+      if (currentFocus >= list.length) currentFocus = 0;
+      if (currentFocus < 0) currentFocus = (list.length - 1);
+      list[currentFocus].classList.add("autocomplete-active");
+    }
+    function removeActive(list) {
+      for (var i = 0; i < list.length; i++) {
+        list[i].classList.remove("autocomplete-active");
+      }
+    }
     function closeAllLists(elmnt) {
       var x = document.getElementsByClassName("autocomplete-items");
       for (var i = 0; i < x.length; i++) {

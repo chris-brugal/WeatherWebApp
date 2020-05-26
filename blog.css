@@ -74,11 +74,37 @@ input[type=submit] {
   background-color: #e9e9e9; 
 }
 
+.autocomplete-active {
+  background-color: DodgerBlue !important; 
+  color: #ffffff; 
+}
+
 .jumbotron{
   background-color: rgb(173, 226, 247);
   color: white;
+  height: 250px;
+}
+.lead{
+  font-size: 48px;
 }
 
+.longLat{
+  font-size: 20px !important;
+}
+
+.weatherDescription{
+  float: right;
+  text-transform: capitalize; 
+  font-size: 25px;
+}
+
+.moreDetails{
+  height: 125px;
+}
+
+.tweets{
+  height: 125px;
+}
 
 .blogHeader{
   border-top: 100px; 
